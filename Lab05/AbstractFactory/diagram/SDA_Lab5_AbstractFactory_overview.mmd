@@ -1,0 +1,41 @@
+classDiagram
+direction TB
+
+class AbstractSlotFactory {
+  <<interface>>
+  + createStraightSlot(): Slot
+  + createBonusSlot(): Slot
+  + createProgressiveSlot(): Slot
+}
+
+class NJSlotFactory
+class NVSlotFactory
+class WGSlotFactory
+AbstractSlotFactory <|.. NJSlotFactory
+AbstractSlotFactory <|.. NVSlotFactory
+AbstractSlotFactory <|.. WGSlotFactory
+
+class Slot {
+  # name: String
+  + build(): void
+  + collectParts(): void
+  + assembleParts(): void
+  + test(type: String): void
+  + uploadSoftware(): void
+  + ship(): void
+}
+class StraightSlot
+class BonusSlot
+class ProgressiveSlot
+StraightSlot --|> Slot
+BonusSlot --|> Slot
+ProgressiveSlot --|> Slot
+
+class SlotComponentFactory { <<interface>> }
+
+NJSlotFactory ..> Slot : creates
+NVSlotFactory ..> Slot : creates
+WGSlotFactory ..> Slot : creates
+Slot ..> SlotComponentFactory : uses
+
+

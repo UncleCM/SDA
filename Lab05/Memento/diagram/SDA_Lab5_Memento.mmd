@@ -1,0 +1,31 @@
+classDiagram
+direction TB
+
+class ScheduleGUI {
+  - memento: TableMemento
+  - tableModel: ScheduleTableModel
+  + ScheduleGUI()
+  + initComponents(): void
+  + main(args: String[]): void
+}
+
+class ScheduleTableModel {
+  + ScheduleTableModel(data: Object[][], columnNames: Object[])
+  + createMemento(): TableMemento
+  + setMemento(m: TableMemento): void
+}
+
+class TableMemento {
+  - columnIdentifiersList: List<Object>
+  - dataList: List<List<Object>>
+  + getColumnIdentifiers(): Vector<Object>
+  + getDataVector(): Vector<Vector<Object>>
+}
+
+ScheduleGUI --> ScheduleTableModel : uses
+ScheduleGUI o-- TableMemento : holds
+ScheduleTableModel *-- TableMemento : creates/serializes
+
+note for ScheduleGUI "File -> Save As... writes memento to disk; Load... reads and applies it."
+
+

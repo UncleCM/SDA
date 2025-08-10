@@ -1,0 +1,125 @@
+classDiagram
+direction TB
+
+class SlotFactory {
+  + orderSlot(type: String): Slot
+  # makeSlot(type: String): Slot
+}
+
+class AbstractSlotFactory {
+  <<interface>>
+  + createStraightSlot(): Slot
+  + createBonusSlot(): Slot
+  + createProgressiveSlot(): Slot
+}
+
+class NJSlotFactory {
+  + createStraightSlot(): Slot
+  + createBonusSlot(): Slot
+  + createProgressiveSlot(): Slot
+}
+class NVSlotFactory {
+  + createStraightSlot(): Slot
+  + createBonusSlot(): Slot
+  + createProgressiveSlot(): Slot
+}
+class WGSlotFactory {
+  + createStraightSlot(): Slot
+  + createBonusSlot(): Slot
+  + createProgressiveSlot(): Slot
+}
+
+class Slot {
+  # cabinet: Cabinet
+  # display: Display
+  # payment: Payment
+  # gpu: GPU
+  # os: OS
+  # name: String
+  + build(): void
+  + collectParts(): void
+  + assembleParts(): void
+  + test(type: String): void
+  + uploadSoftware(): void
+  + ship(): void
+}
+class StraightSlot
+class BonusSlot
+class ProgressiveSlot
+StraightSlot --|> Slot
+BonusSlot --|> Slot
+ProgressiveSlot --|> Slot
+
+AbstractSlotFactory <|.. NJSlotFactory
+AbstractSlotFactory <|.. NVSlotFactory
+AbstractSlotFactory <|.. WGSlotFactory
+
+NJSlotFactory ..> Slot : creates
+NVSlotFactory ..> Slot : creates
+WGSlotFactory ..> Slot : creates
+
+class SlotComponentFactory {
+  <<interface>>
+  + createCabinet(): Cabinet
+  + createDisplay(): Display
+  + createPayment(): Payment
+  + createGPU(): GPU
+  + createOS(): OS
+}
+
+class NJSlotComponentFactory
+class NVSlotComponentFactory
+class WGSlotComponentFactory
+SlotComponentFactory <|.. NJSlotComponentFactory
+SlotComponentFactory <|.. NVSlotComponentFactory
+SlotComponentFactory <|.. WGSlotComponentFactory
+
+Slot ..> SlotComponentFactory : uses
+
+class Cabinet { <<interface>> }
+class smallCabinet
+class mediumCabinet
+class largeCabinet
+Cabinet <|.. smallCabinet
+Cabinet <|.. mediumCabinet
+Cabinet <|.. largeCabinet
+
+class Display { <<interface>> }
+class Reels
+class LCD
+class CRT
+class VGA
+Display <|.. Reels
+Display <|.. LCD
+Display <|.. CRT
+Display <|.. VGA
+
+class Payment { <<interface>> }
+class Coins
+class Bills
+class TicketInTicketOut
+Payment <|.. Coins
+Payment <|.. Bills
+Payment <|.. TicketInTicketOut
+
+class GPU { <<interface>> }
+class ARM
+class X77
+class X86
+GPU <|.. ARM
+GPU <|.. X77
+GPU <|.. X86
+
+class OS { <<interface>> }
+class WindowsME
+class WindowsXP
+class Linux
+class Android
+class Symbian
+OS <|.. WindowsME
+OS <|.. WindowsXP
+OS <|.. Linux
+OS <|.. Android
+OS <|.. Symbian
+
+
