@@ -1,0 +1,41 @@
+classDiagram
+    class Tea {
+        -String flavor
+        +Tea(String flavor)
+        +String getflavor()
+    }
+
+    class TeaCup {
+        -TeaInfuser infuser
+        -Water water
+        -int steepTime
+        +void infuseTea(TeaInfuser infuser)
+        +void addWater(Water water)
+        +void setSteepTime(int steepTime)
+        +void steep()
+    }
+
+    class TeaInfuser {
+        -Tea tea
+        +void addTea(Tea tea)
+    }
+
+    class Water {
+        -int x
+        +void boilWater()
+    }
+
+    class TeaFacade {
+        -TeaCup cup
+        -Water water
+        -TeaInfuser infuser
+        +TeaFacade(TeaCup cup, Water water, TeaInfuser infuser)
+        +void makeTea(String teaType)
+    }
+
+    TeaCup *-- TeaInfuser
+    TeaCup *-- Water
+    TeaInfuser *-- Tea
+    TeaFacade *-- TeaCup
+    TeaFacade *-- Water
+    TeaFacade *-- TeaInfuser
