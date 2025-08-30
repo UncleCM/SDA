@@ -9,11 +9,6 @@ package Adapter;
  *
  * @author boonjv
  */
-package Adapter;
-/**
- *
- * @author boonjv
- */
 public class Employee {
  
     private String name;
