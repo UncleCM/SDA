@@ -1,19 +1,19 @@
 
 public class TestDrive {
 	public static void main(String[] args) {
-		
-		// what about a singleton here???
-		RemoteDeviceV1 remote = new RemoteDeviceV1();
-		
+		RemoteDevice remote = new RemoteDevice();
+
 		remote.pressPlay();
-		
 		remote.pressPause();
-		
 		remote.pressStop();
-		
-		remote.pressPlay();
+		remote.pressRewind(); // Demonstrate rewind feature
 		remote.pressPlay();
 
+		// Demonstrate locking feature
+		remote.pressLock();
+		remote.pressPlay(); // Should do nothing
+		remote.pressPause(); // Should do nothing
+		remote.pressUnlock(); // Unlock and restore previous state
+		remote.pressPlay(); // Should work again
 	}
-
 }
