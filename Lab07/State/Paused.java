@@ -28,12 +28,17 @@ public class Paused implements State {
 	}
 
 
-	// the Stop button is pressed
-	public boolean pressStop() {
-		System.out.println("The player is now stopped.");
-		remote.setState(remote.getStoppedState());
-		remote.setPosition(0);
-		
-		return true;
-	}
+       // the Stop button is pressed
+       public boolean pressStop() {
+	       System.out.println("The player is now stopped.");
+	       remote.setState(remote.getStoppedState());
+	       remote.setPosition(0);
+	       return true;
+       }
+
+       // the Rewind button is pressed
+       public boolean pressRewind() {
+	       System.out.println("Cannot rewind while paused.");
+	       return false;
+       }
 }

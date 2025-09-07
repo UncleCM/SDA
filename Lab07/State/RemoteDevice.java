@@ -10,9 +10,12 @@ public class RemoteDevice {
 	private State playing;
 	private State paused;
 	private State stopped;
+	private State rewind;
+	private State locked;
 	
 	//the current state of the player
 	private State currentState;
+	private State previousState;
 	
 	/**
 	 * the current position of the media
@@ -21,23 +24,44 @@ public class RemoteDevice {
 	 */
 	private int currentPosition; 
 
-	// initialize the remote device	
-	public RemoteDevice() {
-		playing = new Playing(this);
-		paused = new Paused(this);
-		stopped = new Stopped(this);
-	
-		// initial state is stopped	
-		currentState = stopped;
+       // initialize the remote device   
+       public RemoteDevice() {
+	       playing = new Playing(this);
+	       paused = new Paused(this);
+	       stopped = new Stopped(this);
+	       rewind = new Rewind(this);
+	       locked = new Locked(this);
+       
+	       // initial state is stopped   
+	       currentState = stopped;
+	       previousState = stopped;
 
-		// we are at the beginning of the media
-		currentPosition = 0;
-	}
+	       // we are at the beginning of the media
+	       currentPosition = 0;
+       }
 
-	// set the state of the device	
-	public void setState(State currentState) {
-		this.currentState = currentState;
-	}
+       // set the state of the device   
+       public void setState(State currentState) {
+	       this.currentState = currentState;
+       }
+
+       // lock the remote
+       public void lock() {
+	       previousState = currentState;
+	       setState(locked);
+       }
+
+       // unlock the remote
+       public void unlock() {
+	       if (currentState == locked) {
+		   ((Locked)locked).unlock();
+	       }
+       }
+
+       // restore previous state after unlock
+       public void restorePreviousState() {
+	       setState(previousState);
+       }
 
 	// set the position of the media	
 	public void setPosition(int position) {
@@ -49,33 +73,58 @@ public class RemoteDevice {
 		return currentPosition;
 	}
 
-	// press the Play button	
-	public void pressPlay() {
-		currentState.pressPlay();
-	}
-	
-	// press the Pause button	
-	public void pressPause() {
-		currentState.pressPause();
-	}
-	
-	// press the Stop button	
-	public void pressStop() {
-		currentState.pressStop();
-	}
+       // press the Play button   
+       public void pressPlay() {
+	       currentState.pressPlay();
+       }
+       
+       // press the Pause button   
+       public void pressPause() {
+	       currentState.pressPause();
+       }
+       
+       // press the Stop button   
+       public void pressStop() {
+	       currentState.pressStop();
+       }
 
-	// return the playing state	
-	public State getPlayingState() {
-		return playing;
-	}
-	
-	// return the paused state	
-	public State getPausedState() {
-		return paused;
-	}
-	
-	// return the stopped state	
-	public State getStoppedState() {
-		return stopped;
-	}
+       // press the Rewind button
+       public void pressRewind() {
+	       currentState.pressRewind();
+       }
+
+       // press the Lock button
+       public void pressLock() {
+	       lock();
+       }
+
+       // press the Unlock button
+       public void pressUnlock() {
+	       unlock();
+       }
+
+       // return the playing state   
+       public State getPlayingState() {
+	       return playing;
+       }
+       
+       // return the paused state   
+       public State getPausedState() {
+	       return paused;
+       }
+       
+       // return the stopped state   
+       public State getStoppedState() {
+	       return stopped;
+       }
+
+       // return the rewind state
+       public State getRewindState() {
+	       return rewind;
+       }
+
+       // return the locked state
+       public State getLockedState() {
+	       return locked;
+       }
 }

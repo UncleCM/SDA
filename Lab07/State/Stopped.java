@@ -11,14 +11,23 @@ public class Stopped implements State {
 		this.remote = remote;
 	}
 
-	// the Play button is pressed
-	public boolean pressPlay() {
-		System.out.println("The player is now playing.");
-		remote.setState(remote.getPlayingState());
-		remote.setPosition(remote.getPosition()+1);
-		
-		return true;
-	}
+       // the Play button is pressed
+       public boolean pressPlay() {
+	       System.out.println("The player is now playing.");
+	       remote.setState(remote.getPlayingState());
+	       remote.setPosition(remote.getPosition()+1);
+	       return true;
+       }
+
+       // the Rewind button is pressed
+       public boolean pressRewind() {
+	       System.out.println("Rewinding the media to the beginning.");
+	       remote.setState(remote.getRewindState());
+	       remote.setPosition(0);
+	       // Rewind state will automatically transition to Stopped
+	       remote.getRewindState().pressRewind();
+	       return true;
+       }
 
 	// the Paused button is pressed
 	public boolean pressPause() {
