@@ -26,18 +26,13 @@ public class Playing implements State {
 		return true;
 	}
 
-       // the Stop button is pressed
-       public boolean pressStop() {
-	       System.out.println("The player is stopped.");
-	       remote.setState(remote.getPlayingState());
-	       remote.setPosition(0);
-	       return true;
-       }
+	// the Stop button is pressed
+	public boolean pressStop() {
+		System.out.println("The player is stopped.");
+		remote.setState(remote.getPlayingState());
+		remote.setPosition(0);
 
-       // the Rewind button is pressed
-       public boolean pressRewind() {
-	       System.out.println("Cannot rewind while playing.");
-	       return false;
-       }
+		return true;
+	}
 
 }
