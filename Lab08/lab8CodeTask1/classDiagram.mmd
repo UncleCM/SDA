@@ -1,0 +1,57 @@
+classDiagram
+    class Menu {
+        <<interface>>
+        +createIterator()
+    }
+    class MenuItem {
+        -name: String
+        -description: String
+        -vegetarian: boolean
+        -price: double
+        +getName()
+        +getDescription()
+        +getPrice()
+        +isVegetarian()
+    }
+    class PancakeHouseMenu {
+        -menuItems: List~MenuItem~
+        +addItem()
+        +getMenuItems()
+        +createIterator()
+    }
+    class DinerMenu {
+        -menuItems: MenuItem[]
+        +addItem()
+        +getMenuItems()
+        +createIterator()
+    }
+    class PancakeHouseMenuIterator {
+        -items: List~MenuItem~
+        -position: int
+        +hasNext()
+        +next()
+        +remove()
+    }
+    class DinerMenuIterator {
+        -items: MenuItem[]
+        -position: int
+        +hasNext()
+        +next()
+        +remove()
+    }
+    class Waitress {
+        -pancakeHouseMenu: Menu
+        -dinerMenu: Menu
+        +printMenu()
+        +printVegetarianMenu()
+        +isItemVegetarian()
+    }
+
+    PancakeHouseMenu "1" --|> "1" Menu
+    DinerMenu "1" --|> "1" Menu
+    PancakeHouseMenu "1" --> "1" PancakeHouseMenuIterator
+    DinerMenu "1" --> "1" DinerMenuIterator
+    PancakeHouseMenu "1" --> "*" MenuItem
+    DinerMenu "1" --> "*" MenuItem
+    Waitress "1" --> "1" PancakeHouseMenu
+    Waitress "1" --> "1" DinerMenu

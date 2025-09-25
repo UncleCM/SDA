@@ -1,0 +1,58 @@
+classDiagram
+    class Object_Component {
+        +add(component)
+        +remove(component)
+        +getChild(i)
+        +render()
+        +volume()
+        +createIterator()
+    }
+    class Prim {
+        <<abstract>>
+        +render()
+        +volume()
+        +createIterator()
+    }
+    class Object {
+        -children: List~Object_Component~
+        +add(component)
+        +remove(component)
+        +getChild(i)
+        +render()
+        +volume()
+        +createIterator()
+    }
+    class Cube {
+        -height: float
+        -width: float
+        -length: float
+        +render()
+        +volume()
+        +createIterator()
+    }
+    class Sphere {
+        -radius: float
+        +render()
+        +volume()
+        +createIterator()
+    }
+    class CompositeIterator {
+        -stack: Stack
+        +hasNext()
+        +next()
+        +remove()
+    }
+    class NullIterator {
+        +hasNext()
+        +next()
+        +remove()
+    }
+
+    Object_Component <|-- Prim
+    Object_Component <|-- Object
+    Prim <|-- Cube
+    Prim <|-- Sphere
+    Object o-- "0..*" Object_Component
+    Object --> CompositeIterator
+    Cube --> NullIterator
+    Sphere --> NullIterator

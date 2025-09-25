@@ -1,0 +1,65 @@
+classDiagram
+direction TB
+
+class SlotComponentFactory {
+  <<interface>>
+  + createCabinet(): Cabinet
+  + createDisplay(): Display
+  + createPayment(): Payment
+  + createGPU(): GPU
+  + createOS(): OS
+}
+class NJSlotComponentFactory
+class NVSlotComponentFactory
+class WGSlotComponentFactory
+SlotComponentFactory <|.. NJSlotComponentFactory
+SlotComponentFactory <|.. NVSlotComponentFactory
+SlotComponentFactory <|.. WGSlotComponentFactory
+
+class Cabinet { <<interface>> }
+class smallCabinet
+class mediumCabinet
+class largeCabinet
+Cabinet <|.. smallCabinet
+Cabinet <|.. mediumCabinet
+Cabinet <|.. largeCabinet
+
+class Display { <<interface>> }
+class Reels
+class LCD
+class CRT
+class VGA
+Display <|.. Reels
+Display <|.. LCD
+Display <|.. CRT
+Display <|.. VGA
+
+class Payment { <<interface>> }
+class Coins
+class Bills
+class TicketInTicketOut
+Payment <|.. Coins
+Payment <|.. Bills
+Payment <|.. TicketInTicketOut
+
+class GPU { <<interface>> }
+class ARM
+class X77
+class X86
+GPU <|.. ARM
+GPU <|.. X77
+GPU <|.. X86
+
+class OS { <<interface>> }
+class WindowsME
+class WindowsXP
+class Linux
+class Android
+class Symbian
+OS <|.. WindowsME
+OS <|.. WindowsXP
+OS <|.. Linux
+OS <|.. Android
+OS <|.. Symbian
+
+
